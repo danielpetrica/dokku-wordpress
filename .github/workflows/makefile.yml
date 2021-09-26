@@ -16,3 +16,6 @@ jobs:
       
     - name: Run 
       run: make build
+      env:
+          SERVER_NAME: padserver.xyz
+          APP_NAME: test
