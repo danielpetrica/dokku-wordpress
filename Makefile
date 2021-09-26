@@ -3,11 +3,11 @@ ifndef APP_NAME
 endif
 
 ifndef WORDPRESS_VERSION
-	WORDPRESS_VERSION = 4.9.6
+	WORDPRESS_VERSION = 5.8.1
 endif
 
 ifndef BUILDPACK_VERSION
-	BUILDPACK_VERSION = v180
+	BUILDPACK_VERSION = v197
 endif
 
 ifndef DOKKU_USER
@@ -50,7 +50,7 @@ endif
 	# adding .env file to configure buildpack
 	@test -f $(APP_NAME)/.buildpacks   || (echo "https://github.com/heroku/heroku-buildpack-php.git#$(BUILDPACK_VERSION)" > $(APP_NAME)/.buildpacks && cd $(APP_NAME) && git add .buildpacks && git commit -qm "Forcing php buildpack usage")
 	# ensuring our composer.json loads with php 5.6 and loads the mysql extension
-	@test -f $(APP_NAME)/composer.json || (cp config/composer.json $(APP_NAME)/composer.json && cp config/composer.lock $(APP_NAME)/composer.lock && cd $(APP_NAME) && git add composer.json composer.lock && git commit -qm "Use PHP 5.6 and the mysql extension")
+	@test -f $(APP_NAME)/composer.json || (cp config/composer.json $(APP_NAME)/composer.json && cp config/composer.lock $(APP_NAME)/composer.lock && cd $(APP_NAME) && git add composer.json composer.lock && git commit -qm "Use PHP ^7.4 and the mysql extension")
 	# setting the correct dokku remote for your app and server combination
 	@cd $(APP_NAME) && (git remote rm dokku 2> /dev/null || true) && git remote add dokku "dokku@$(SERVER_NAME):$(APP_NAME)"
 	# retrieving potential salts and writing them to /tmp/wp-salts
